@@ -24,15 +24,17 @@
   padding: 0;
 }
 
-html {
+html,
+body {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
   font-family: "DM Sans", sans-serif;
-  background: var(--white);
+  background: #ffffff;
   color: var(--text);
-  overflow-x: hidden;
 }
 
 h1,
@@ -188,7 +190,8 @@ nav.scrolled {
 /* ========== HERO ========== */
 .hero {
   min-height: calc(100vh - 140px);
-  padding: 20px 4% 10px;
+  padding: 10px 4% 10px;
+  /* Reduced top padding from 20px to 10px */
   display: grid;
   grid-template-columns: 1fr 1.4fr;
   gap: 40px;
@@ -268,9 +271,11 @@ nav.scrolled {
 .hero-left {
   position: relative;
   z-index: 1;
-  padding-top: 30px;
+  padding-top: 15px;
   align-self: center;
 }
+
+/* Reduced padding-top from 30px to 15px */
 
 .hero h1 {
   font-size: clamp(2.4rem, 4.5vw, 4rem);
@@ -281,11 +286,63 @@ nav.scrolled {
   color: var(--text);
 }
 
-.hero h1 .blue {
-  color: var(--blue);
-  position: relative;
-  display: inline-block;
+/* ========== HERO HEADING — TYPEWRITER ANIMATION ========== */
+.hero-heading-anim {
+  overflow: visible;
+  /* h1 is always visible; JS fills content */
 }
+
+/* Blue accent words — continuous shimmer sweep */
+.hw-blue {
+  background: linear-gradient(
+    90deg,
+    var(--blue)  0%,
+    #a8c8ff     38%,
+    #cce0ff     52%,
+    var(--blue)  68%,
+    #a8c8ff    100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hw-shimmer 2.8s linear infinite;
+}
+
+@keyframes hw-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 220% center; }
+}
+
+/* Blinking cursor */
+.hero-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--blue);
+  border-radius: 2px;
+  margin-left: 4px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+  animation: cursor-blink 0.75s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(77, 121, 202, 0.6);
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Cursor fades out when typing is done */
+.hero-cursor.done {
+  animation: cursor-fade 0.6s ease forwards;
+}
+
+@keyframes cursor-fade {
+  to { opacity: 0; width: 0; margin: 0; }
+}
+
 
 .hero h1 .blue::after {
   content: "";
@@ -342,19 +399,20 @@ nav.scrolled {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 0.84rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 500;
   letter-spacing: 0.3px;
   background: rgba(77, 121, 202, 0.06);
-  padding: 5px 12px;
+  padding: 4px 10px;
   border-radius: 50px;
   border: 1px solid rgba(77, 121, 202, 0.12);
+  white-space: nowrap;
 }
 
 .trust-pill i {
   color: var(--blue);
-  font-size: 0.84rem;
+  font-size: 0.78rem;
 }
 
 .trust-divider {
@@ -401,48 +459,50 @@ nav.scrolled {
   display: block;
 }
 
+/* ===== BADGE SIZE FIX — smaller, compact ===== */
 .img-badge {
   position: absolute;
   background: white;
-  border-radius: 18px;
-  padding: 12px 18px;
+  border-radius: 14px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   font-family: "Syne", sans-serif;
   font-weight: 700;
   color: var(--text);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   white-space: nowrap;
+  max-width: 160px;
 }
 
 .img-badge .badge-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
 }
 
 .img-badge .badge-label {
   color: var(--text-muted);
-  font-size: 0.7rem;
+  font-size: 0.62rem;
   font-weight: 500;
 }
 
 .badge-a {
-  top: -22px;
-  left: -22px;
+  bottom: -16px;
+  left: -16px;
   animation: badge-pop 3s ease-in-out infinite;
 }
 
 .badge-c {
-  top: 40%;
-  right: -28px;
+  top: 20px;
+  right: -16px;
   animation: badge-pop 4s ease-in-out infinite 2s;
 }
 
@@ -454,11 +514,11 @@ nav.scrolled {
   }
 
   30% {
-    transform: translateY(-10px) scale(1.04);
+    transform: translateY(-8px) scale(1.03);
   }
 
   60% {
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-4px) scale(1.02);
   }
 }
 
@@ -484,7 +544,6 @@ nav.scrolled {
   grid-column: 2;
   grid-row: 1;
 }
-
 
 /* ========== BUTTONS ========== */
 .btn-primary {
@@ -552,7 +611,6 @@ nav.scrolled {
   background: rgba(77, 121, 202, 0.1);
   border-color: var(--blue);
   color: var(--blue);
-  box-shadow: 0 4px 16px rgba(77, 121, 202, 0.12);
 }
 
 @keyframes fade-up {
@@ -621,9 +679,23 @@ nav.scrolled {
   transform: translateX(0);
 }
 
-/* ========== SECTION BASE ========== */
+/* ========== SECTION BASE — Reduced Spacing ========== */
 section {
-  padding: 20px 4% 10px;
+  padding: 10px 4% 10px;
+  /* Reduced top from 20px to 10px */
+  position: relative;
+}
+
+section:not(.contact):not(.hero):not(.why-us)::after {
+  content: "";
+  display: block;
+  width: 90%;
+  max-width: 1200px;
+  height: 2px;
+  background: rgba(77, 121, 202, 0.15);
+  margin: 15px auto 5px auto;
+  /* Reduced from 40px top / 10px bottom */
+  border-radius: 4px;
 }
 
 .section-tag {
@@ -636,7 +708,8 @@ section {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  /* Reduced from 16px */
   border: 1px solid rgba(77, 121, 202, 0.18);
   transition: background 0.2s;
 }
@@ -650,7 +723,8 @@ section {
   font-weight: 800;
   letter-spacing: -1.5px;
   line-height: 1.1;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  /* Reduced from 16px */
   color: var(--text);
 }
 
@@ -724,12 +798,13 @@ section {
   }
 }
 
-/* ========== BELIEFS ========== */
+/* ========== BELIEFS (Philosophy) — Reduced Spacing ========== */
 .beliefs {
-  background: linear-gradient(180deg, var(--off-white) 0%, #e8effe 100%);
+  background: #ffffff;
   position: relative;
   overflow: hidden;
-  padding: 20px 4% 10px;
+  padding: 5px 4% 30px;
+  /* Reduced top from 30px to 5px */
 }
 
 .beliefs::before {
@@ -746,7 +821,7 @@ section {
 .beliefs-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 40px;
   align-items: center;
 }
 
@@ -756,12 +831,12 @@ section {
 
 .beliefs-img {
   width: 100%;
-  height: 500px;
-  max-height: 750px;
+  height: 460px;
+  max-height: 500px;
   margin: 0 auto;
   border-radius: 24px;
-  object-fit: contain;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
   animation: float-card 5s ease-in-out infinite 1s;
 }
 
@@ -789,18 +864,28 @@ section {
   opacity: 0.8;
 }
 
+.beliefs .section-title {
+  white-space: nowrap;
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+}
+
+.beliefs .section-sub {
+  max-width: 540px;
+}
+
 .beliefs-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  margin-top: 36px;
+  margin-top: 15px;
+  /* Reduced from 24px */
 }
 
 .belief-card {
   background: white;
   border: 1px solid rgba(77, 121, 202, 0.12);
   border-radius: 18px;
-  padding: 26px;
+  padding: 22px;
   box-shadow: 0 4px 20px rgba(77, 121, 202, 0.06);
   transition: all 0.35s;
   cursor: default;
@@ -821,7 +906,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   font-size: 1.2rem;
   transition: all 0.3s;
   color: var(--blue);
@@ -837,7 +922,7 @@ section {
   font-size: 0.88rem;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .belief-card p {
@@ -846,18 +931,18 @@ section {
   line-height: 1.6;
 }
 
-/* ========== SERVICES ========== */
+/* ========== SERVICES (What We Do) — Reduced Spacing ========== */
 .services {
   background: #ffffff;
-  padding: 20px 4% 20px;
-  /* top padding above the cards section, good bottom space */
+  padding: 5px 4% 20px;
+  /* Reduced top from 30px to 5px */
 }
 
-/* Global Section Centered Header */
 .section-center-header {
   text-align: center;
   max-width: 1100px;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 5px auto;
+  /* Reduced bottom from 10px to 5px */
 }
 
 .section-center-header .section-sub {
@@ -868,18 +953,17 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 10px;
+  /* Reduced from 28px to 10px */
   max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* ===== SERVICE GRID: always 3 columns, good gap ===== */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-  /* gap between the 3 cards */
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -901,14 +985,12 @@ section {
   border-color: rgba(77, 121, 202, 0.3);
 }
 
-/* image wrap: sits with margin inside the card */
 .service-card-img-wrap {
   position: relative;
-  width: calc(100% - 20px);
-  aspect-ratio: 16 / 7;
-  margin: 12px auto 0;
-  /* top gap inside card before image */
-  border-radius: 10px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin: 0;
+  border-radius: 16px 16px 0 0;
   overflow: hidden;
 }
 
@@ -923,7 +1005,6 @@ section {
   transform: scale(1.05);
 }
 
-/* content: good top + bottom padding */
 .service-card-content {
   padding: 14px 16px 18px 16px;
   flex-grow: 1;
@@ -1005,7 +1086,6 @@ section {
   flex-grow: 1;
 }
 
-/* features list with clear top border and padding */
 .service-features {
   list-style: none;
   display: grid;
@@ -1014,7 +1094,6 @@ section {
   margin-top: auto;
   border-top: 1px solid rgba(77, 121, 202, 0.12);
   padding-top: 10px;
-  /* gap between border and feature items */
   padding-bottom: 2px;
 }
 
@@ -1050,10 +1129,11 @@ section {
   color: var(--text);
 }
 
-/* ========== ABOUT ========== */
+/* ========== ABOUT (Who We Are) — Reduced Spacing ========== */
 .about {
-  background: linear-gradient(180deg, var(--off-white) 0%, #ffffff 100%);
-  padding: 20px 4% 10px;
+  background: #ffffff;
+  padding: 5px 4% 30px;
+  /* Reduced top from 30px to 5px */
 }
 
 .about-inner {
@@ -1108,6 +1188,163 @@ section {
   animation: badge-pop 4s ease-in-out infinite 1.2s;
 }
 
+/* ========== VISUAL PANELS ========== */
+.about-visual-panel,
+.beliefs-visual-panel {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 30px 80px rgba(77, 121, 202, 0.16);
+  border: 1px solid rgba(77, 121, 202, 0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 480px;
+}
+
+.avp-tagline,
+.bvp-label {
+  font-family: "Syne", sans-serif;
+  color: var(--blue);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.avp-heading,
+.bvp-title {
+  font-size: 2.4rem;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 20px;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.avp-heading strong,
+.bvp-title strong {
+  color: var(--blue);
+}
+
+.avp-divider,
+.bvp-divider {
+  width: 60px;
+  height: 4px;
+  background: var(--blue);
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.avp-desc,
+.bvp-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.avp-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: auto;
+  border-top: 1px solid rgba(77, 121, 202, 0.1);
+  padding-top: 30px;
+}
+
+.avp-stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  font-family: "Syne", sans-serif;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.avp-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.bvp-number {
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(77, 121, 202, 0.1);
+  font-family: "Syne", sans-serif;
+  line-height: 1;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.beliefs-visual-panel {
+  position: relative;
+  background: linear-gradient(135deg, white, #f8faff);
+}
+
+.bvp-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.bvp-pillar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(77, 121, 202, 0.06);
+  border: 1px solid var(--border);
+  transition: transform 0.3s;
+}
+
+.bvp-pillar:hover {
+  transform: translateX(10px);
+  border-color: rgba(77, 121, 202, 0.3);
+}
+
+.bvp-pillar-num {
+  font-family: "Syne", sans-serif;
+  color: var(--blue);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.bvp-pillar-name {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+@keyframes animated-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-text {
+  background: linear-gradient(270deg, var(--text), var(--blue), var(--text-muted), var(--blue));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animated-gradient 6s ease infinite;
+}
+
 .about-stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1145,35 +1382,6 @@ section {
   font-weight: 500;
 }
 
-.about-mission {
-  background: var(--blue);
-  border-radius: 22px;
-  padding: 32px;
-  color: white;
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.about-mission i {
-  font-size: 2.5rem;
-  opacity: 0.7;
-  flex-shrink: 0;
-}
-
-.about-mission h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.about-mission p {
-  font-size: 0.86rem;
-  opacity: 0.8;
-  line-height: 1.6;
-}
-
 .about-img-badge i {
   font-size: 1.2rem;
   color: var(--blue);
@@ -1190,12 +1398,12 @@ section {
   color: var(--text-muted);
 }
 
-/* ===== ABOUT STEPS — 2-column card grid ===== */
 .about-steps {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
-  margin-top: 24px;
+  margin-top: 15px;
+  /* Reduced from 24px */
 }
 
 .step {
@@ -1208,7 +1416,6 @@ section {
   gap: 10px;
   box-shadow: 0 4px 20px rgba(77, 121, 202, 0.06);
   transition: all 0.3s ease;
-  position: relative;
 }
 
 .step:hover {
@@ -1258,8 +1465,10 @@ section {
 /* ========== WHY US ========== */
 .why-us {
   background: linear-gradient(180deg, white 0%, var(--off-white) 100%);
-  padding: 20px 4% 10px;
+  padding: 10px 4% 10px;
 }
+
+/* Reduced padding-top to 10px */
 
 .why-inner {
   display: grid;
@@ -1316,8 +1525,10 @@ section {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 36px;
+  margin-top: 24px;
 }
+
+/* Reduced from 36px */
 
 .why-item {
   display: flex;
@@ -1370,16 +1581,17 @@ section {
   line-height: 1.5;
 }
 
-/* ========== FAQ ========== */
+/* ========== FAQ — Reduced Spacing ========== */
 .faq-section {
-  background: linear-gradient(180deg, var(--off-white) 0%, white 100%);
-  padding: 20px 4% 10px;
+  background: #ffffff;
+  padding: 5px 4% 40px;
+  /* Reduced top padding from 30px to 5px */
 }
 
 .faq-inner {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
-  gap: 20px;
+  gap: 40px;
   align-items: start;
 }
 
@@ -1515,7 +1727,7 @@ section {
   text-align: center;
   position: relative;
   overflow: hidden;
-  padding: 20px 4% 10px;
+  padding: 60px 4% 40px;
 }
 
 .contact::before {
@@ -1624,19 +1836,16 @@ section {
 
 .contact-btn.phone:hover {
   background: #f0f5ff;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.25);
 }
 
 .contact-btn.email {
   background: rgba(77, 121, 202, 0.25);
   border: 1.5px solid rgba(77, 121, 202, 0.45);
   color: white;
-  box-shadow: 0 8px 24px rgba(77, 121, 202, 0.25);
 }
 
 .contact-btn.email:hover {
   background: rgba(77, 121, 202, 0.4);
-  box-shadow: 0 14px 36px rgba(77, 121, 202, 0.4);
 }
 
 .contact-btn:hover {
@@ -1676,11 +1885,55 @@ footer {
   filter: brightness(0) invert(1);
 }
 
+.footer-tagline {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 4px;
+}
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.social-btn:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+  transform: translateY(-3px);
+}
+
 .footer-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 18px;
   flex-wrap: wrap;
+}
+
+.footer-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 footer p {
@@ -1782,7 +2035,6 @@ footer a:hover {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(77, 121, 202, 0.15);
   opacity: 0;
   transform: translateY(16px) scale(0.9);
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1805,69 +2057,65 @@ footer a:hover {
   animation: none;
 }
 
-/* ========== MEDIA QUERIES ========== */
+/* ========================================================
+   MEDIA QUERIES — COMPREHENSIVE RESPONSIVE
+   ======================================================== */
+
+/* ===== LARGE TABLET (1024px) ===== */
 @media (max-width: 1024px) {
   nav {
-    padding: 14px 3%;
+    padding: 14px 4%;
   }
 
   nav.scrolled {
-    padding: 10px 3%;
+    padding: 10px 4%;
   }
 
   .hero {
-    gap: 20px;
-    padding: 10px 3% 20px;
+    gap: 24px;
+    padding: 24px 4% 20px;
   }
 
   .hero h1 {
-    font-size: clamp(2.4rem, 4vw, 3rem);
+    font-size: clamp(2.2rem, 4vw, 3rem);
   }
 
   .hero-img-main {
     width: 100%;
     height: auto;
-    max-height: 350px;
-    margin: 0 auto;
+    max-height: 380px;
   }
 
   section {
-    padding: 15px 3% 10px;
+    padding: 20px 4% 20px;
   }
 
+  /* Reduced from 30px-60px */
   .beliefs {
-    padding: 15px 3% 15px;
+    padding: 15px 4% 40px;
   }
 
   .about {
-    padding: 15px 3% 15px;
-  }
-
-  .why-us {
-    padding: 15px 3% 15px;
-  }
-
-  .faq-section {
-    padding: 15px 3% 15px;
-  }
-
-  .contact {
-    padding: 15px 3% 15px;
+    padding: 15px 4% 40px;
   }
 
   .services {
-    padding: 15px 3% 20px;
+    padding: 15px 4% 30px;
   }
 
-  footer {
-    padding: 36px 3%;
+  .faq-section {
+    padding: 15px 4% 40px;
+  }
+
+  .contact {
+    padding: 70px 4% 60px;
   }
 
   .beliefs-inner,
   .about-inner,
   .why-inner,
   .faq-inner {
-    gap: 40px;
+    gap: 32px;
   }
 
   .services-grid {
@@ -1883,13 +2131,19 @@ footer a:hover {
   .about-stats-row,
   .stats-inner {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 16px;
+  }
+
+  .beliefs .section-title {
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    white-space: nowrap;
   }
 }
 
+/* ===== TABLET (768px) ===== */
 @media (max-width: 768px) {
   nav {
-    padding: 14px 3%;
+    padding: 14px 4%;
   }
 
   .nav-links {
@@ -1909,22 +2163,29 @@ footer a:hover {
     left: 0;
     right: 0;
     background: white;
-    padding: 20px 4%;
+    padding: 20px 5%;
     gap: 14px;
     border-bottom: 1px solid var(--border);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 
+  /* Hero — single column */
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 20px 3% 15px;
+    padding: 36px 4% 30px;
+    min-height: auto;
   }
 
   .hero-left {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 2.8rem);
   }
 
   .hero-btns,
@@ -1933,120 +2194,255 @@ footer a:hover {
     flex-wrap: wrap;
   }
 
+  .hero-trust-line {
+    gap: 8px;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .trust-pill {
+    font-size: 0.72rem;
+    padding: 4px 8px;
+  }
+
   .hero-right {
     display: block;
     width: 100%;
-    margin-top: 20px;
     order: -1;
   }
 
+  .hero-img-main {
+    max-height: 280px;
+  }
+
+  /* Badges — hide on small screens to prevent overflow */
+  .badge-a,
+  .badge-c {
+    display: none;
+  }
+
+  /* Sections — Reduced padding for tablet */
   section {
-    padding: 15px 3% 10px;
+    padding: 25px 4% 20px;
   }
 
   .beliefs {
-    padding: 10px 3% 15px;
+    padding: 15px 4% 30px;
   }
 
   .about {
-    padding: 10px 3% 15px;
-  }
-
-  .why-us {
-    padding: 10px 3% 15px;
-  }
-
-  .faq-section {
-    padding: 10px 3% 15px;
-  }
-
-  .contact {
-    padding: 10px 3% 15px;
+    padding: 15px 4% 30px;
   }
 
   .services {
-    padding: 15px 3% 15px;
+    padding: 15px 4% 30px;
   }
 
-  footer {
-    padding: 30px 3%;
-    flex-direction: column;
-    text-align: center;
-    gap: 24px;
-    padding-bottom: 80px;
+  .faq-section {
+    padding: 15px 4% 30px;
   }
 
+  .contact {
+    padding: 60px 4% 50px;
+  }
+
+  /* Grids — single column */
   .beliefs-inner,
   .about-inner,
-  .why-inner,
+  .why-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
   .faq-inner {
     grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  .services-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+  /* ===== BELIEFS IMAGE — SHOW ON MOBILE ===== */
+  .beliefs-img-wrap {
+    display: block !important;
+    max-width: 100%;
+    overflow: visible;
   }
 
-  .services-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+  .beliefs-img {
+    height: 280px;
+    object-fit: cover;
   }
 
-  .beliefs-img-wrap,
+  .beliefs .section-title {
+    white-space: normal;
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+  }
+
+  /* ===== FAQ IMAGE — SHOW ON MOBILE ===== */
   .faq-img-wrap {
-    display: none;
+    display: block !important;
+    margin-bottom: 40px;
+  }
+
+  .faq-img {
+    height: 220px;
+  }
+
+  /* Services */
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* Services Get Started button — CENTER on mobile */
+  .services-header {
+    justify-content: center !important;
+    margin-bottom: 20px;
+  }
+
+  .section-center-header {
+    margin-bottom: 8px;
+  }
+
+  .about-steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
   .about-stats-row {
     grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 30px 4% 80px;
   }
 
   .footer-links {
-    display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
   }
 }
 
+/* ===== MOBILE (480px) ===== */
 @media (max-width: 480px) {
-  .hero h1 {
-    font-size: 2rem;
+  nav {
+    padding: 12px 4%;
   }
 
-  .about-stats-row {
-    grid-template-columns: 1fr;
+  .hero {
+    padding: 24px 4% 20px;
+  }
+
+  .hero-right,
+  .faq-img-wrap {
+    display: none !important;
+  }
+
+  .hero h1 {
+    font-size: 1.9rem;
+    letter-spacing: -1px;
+  }
+
+  .hero p {
+    font-size: 0.88rem;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
   }
 
   .hero-trust-line {
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 8px;
+    white-space: normal;
   }
 
   .trust-divider {
     display: none;
   }
 
-  .contact-methods {
-    flex-direction: column;
+  .trust-pill {
+    font-size: 0.7rem;
   }
 
-  .contact-btn {
-    width: 100%;
-    justify-content: center;
+  .hero-img-main {
+    max-height: 220px;
+  }
+
+  section {
+    padding: 30px 4% 24px;
+  }
+
+  /* Reduced from 40px */
+  .beliefs {
+    padding: 15px 4% 30px;
+  }
+
+  .about {
+    padding: 15px 4% 30px;
+  }
+
+  .services {
+    padding: 15px 4% 25px;
+  }
+
+  .faq-section {
+    padding: 15px 4% 30px;
+  }
+
+  .contact {
+    padding: 48px 4% 40px;
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  /* Beliefs — single column, title wraps */
+  .beliefs .section-title {
+    white-space: normal;
+    font-size: 1.8rem;
+  }
+
+  .beliefs-inner {
+    gap: 28px;
+  }
+
+  .beliefs-img {
+    height: 220px;
+  }
+
+  .beliefs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .belief-card,
   .why-item {
-    padding: 20px 16px;
+    padding: 18px 14px;
   }
 
+  /* Services — single column */
   .services-grid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -2058,18 +2454,108 @@ footer a:hover {
   }
 
   .service-card-content>p {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
   }
 
-  .service-features {
-    display: grid;
-  }
-
-  .svc-badge {
-    display: flex;
-  }
-
+  /* About steps */
   .about-steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .about-stats-row {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* FAQ */
+  .faq-inner {
+    gap: 28px;
+  }
+
+  .faq-img {
+    height: 180px;
+  }
+
+  .faq-img-wrap {
+    padding: 12px;
+  }
+
+  /* Contact */
+  .contact-methods {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+
+  .contact-img-row {
+    gap: 12px;
+  }
+
+  .contact-img-item img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+}
+
+/* ===== SMALL MOBILE (360px) ===== */
+@media (max-width: 360px) {
+  .hero h1 {
+    font-size: 1.65rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .beliefs .section-title {
+    font-size: 1.6rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .beliefs-griaad {
+    grid-template-columns: 1fr;
+  }
+
+  nav {
+    padding: 10px 3%;
+  }
+
+  section {
+    padding: 25px 3% 20px;
+  }
+
+  .beliefs {
+    padding: 15px 3% 25px;
+  }
+
+  .about {
+    padding: 15px 3% 25px;
+  }
+
+  .services {
+    padding: 15px 3% 25px;
+  }
+
+  .faq-section {
+    padding: 15px 3% 25px;
+  }
+
+  .contact {
+    padding: 35px 3% 30px;
   }
 }
