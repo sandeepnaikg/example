@@ -289,7 +289,7 @@ nav.scrolled {
 /* ========== HERO HEADING — TYPEWRITER ANIMATION ========== */
 .hero-heading-anim {
   overflow: visible;
-  /* h1 is always visible; JS fills content */
+  white-space: nowrap; /* prevents 'Big.' from wrapping to next line */
 }
 
 /* Blue accent words — continuous shimmer sweep */
@@ -803,8 +803,7 @@ section:not(.contact):not(.hero):not(.why-us)::after {
   background: #ffffff;
   position: relative;
   overflow: hidden;
-  padding: 5px 4% 30px;
-  /* Reduced top from 30px to 5px */
+  padding: 50px 4% 30px;
 }
 
 .beliefs::before {
