@@ -188,7 +188,7 @@ nav.scrolled {
 /* ========== HERO ========== */
 .hero {
   min-height: calc(100vh - 140px);
-  padding: 50px 4% 40px;
+  padding: 20px 4% 10px;
   display: grid;
   grid-template-columns: 1fr 1.4fr;
   gap: 40px;
@@ -623,7 +623,7 @@ nav.scrolled {
 
 /* ========== SECTION BASE ========== */
 section {
-  padding: 50px 4% 30px;
+  padding: 20px 4% 10px;
 }
 
 .section-tag {
@@ -729,7 +729,7 @@ section {
   background: linear-gradient(180deg, var(--off-white) 0%, #e8effe 100%);
   position: relative;
   overflow: hidden;
-  padding: 50px 4% 40px;
+  padding: 20px 4% 10px;
 }
 
 .beliefs::before {
@@ -849,7 +849,7 @@ section {
 /* ========== SERVICES ========== */
 .services {
   background: #ffffff;
-  padding: 50px 4% 60px;
+  padding: 20px 4% 20px;
   /* top padding above the cards section, good bottom space */
 }
 
@@ -1053,7 +1053,7 @@ section {
 /* ========== ABOUT ========== */
 .about {
   background: linear-gradient(180deg, var(--off-white) 0%, #ffffff 100%);
-  padding: 50px 4% 40px;
+  padding: 20px 4% 10px;
 }
 
 .about-inner {
@@ -1258,7 +1258,7 @@ section {
 /* ========== WHY US ========== */
 .why-us {
   background: linear-gradient(180deg, white 0%, var(--off-white) 100%);
-  padding: 50px 4% 40px;
+  padding: 20px 4% 10px;
 }
 
 .why-inner {
@@ -1373,7 +1373,7 @@ section {
 /* ========== FAQ ========== */
 .faq-section {
   background: linear-gradient(180deg, var(--off-white) 0%, white 100%);
-  padding: 50px 4% 40px;
+  padding: 20px 4% 10px;
 }
 
 .faq-inner {
@@ -1515,7 +1515,7 @@ section {
   text-align: center;
   position: relative;
   overflow: hidden;
-  padding: 50px 4% 40px;
+  padding: 20px 4% 10px;
 }
 
 .contact::before {
@@ -1832,31 +1832,31 @@ footer a:hover {
   }
 
   section {
-    padding: 50px 3% 30px;
+    padding: 15px 3% 10px;
   }
 
   .beliefs {
-    padding: 50px 3% 40px;
+    padding: 15px 3% 15px;
   }
 
   .about {
-    padding: 50px 3% 40px;
+    padding: 15px 3% 15px;
   }
 
   .why-us {
-    padding: 50px 3% 40px;
+    padding: 15px 3% 15px;
   }
 
   .faq-section {
-    padding: 50px 3% 40px;
+    padding: 15px 3% 15px;
   }
 
   .contact {
-    padding: 50px 3% 40px;
+    padding: 15px 3% 15px;
   }
 
   .services {
-    padding: 50px 3% 60px;
+    padding: 15px 3% 20px;
   }
 
   footer {
@@ -1918,7 +1918,7 @@ footer a:hover {
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 60px 3% 40px;
+    padding: 20px 3% 15px;
   }
 
   .hero-left {
@@ -1941,31 +1941,31 @@ footer a:hover {
   }
 
   section {
-    padding: 40px 3% 20px;
+    padding: 15px 3% 10px;
   }
 
   .beliefs {
-    padding: 40px 3% 30px;
+    padding: 10px 3% 15px;
   }
 
   .about {
-    padding: 40px 3% 30px;
+    padding: 10px 3% 15px;
   }
 
   .why-us {
-    padding: 40px 3% 30px;
+    padding: 10px 3% 15px;
   }
 
   .faq-section {
-    padding: 40px 3% 30px;
+    padding: 10px 3% 15px;
   }
 
   .contact {
-    padding: 40px 3% 30px;
+    padding: 10px 3% 15px;
   }
 
   .services {
-    padding: 36px 3% 40px;
+    padding: 15px 3% 15px;
   }
 
   footer {
