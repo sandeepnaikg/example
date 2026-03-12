@@ -24,17 +24,15 @@
   padding: 0;
 }
 
-html,
-body {
+html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  max-width: 100vw;
 }
 
 body {
   font-family: "DM Sans", sans-serif;
   background: #ffffff;
   color: var(--text);
+  max-width: 100vw;
 }
 
 h1,
@@ -74,10 +72,8 @@ body::after {
 
 /* ========== NAV ========== */
 nav {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
   z-index: 1000;
   padding: 14px 4%;
   display: flex;
@@ -2250,12 +2246,20 @@ footer a:hover {
 
 /* ===== TABLET (768px) ===== */
 @media (max-width: 768px) {
-  nav {
-    padding: 14px 4%;
-    position: sticky !important;
+  #navbar {
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 14px 5%;
+    position: fixed !important;
     top: 0 !important;
+    z-index: 1001 !important;
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  nav + section {
+    padding-top: 90px !important;
   }
 
   .nav-links {
@@ -2285,7 +2289,7 @@ footer a:hover {
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 36px 4% 30px;
+    padding: 85px 4% 30px;
     min-height: auto;
   }
 
@@ -2448,12 +2452,19 @@ footer a:hover {
 
 /* ===== MOBILE (480px) ===== */
 @media (max-width: 480px) {
-  nav {
+  #navbar {
+    width: 100%;
+    left: 0;
+    right: 0;
     padding: 12px 4%;
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 1001 !important;
+    background: white;
   }
 
   .hero {
-    padding: 24px 4% 20px;
+    padding: 80px 4% 20px;
   }
 
   .hero-right,
@@ -2649,12 +2660,19 @@ footer a:hover {
     grid-template-columns: 1fr;
   }
 
-  .beliefs-griaad {
+  .beliefs-grid {
     grid-template-columns: 1fr;
   }
 
-  nav {
-    padding: 10px 3%;
+  #navbar {
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 10px 4%;
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 1001 !important;
+    background: white;
   }
 
   section {
