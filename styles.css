@@ -294,14 +294,12 @@ nav.scrolled {
 
 /* Blue accent words — continuous shimmer sweep */
 .hw-blue {
-  background: linear-gradient(
-    90deg,
-    var(--blue)  0%,
-    #a8c8ff     38%,
-    #cce0ff     52%,
-    var(--blue)  68%,
-    #a8c8ff    100%
-  );
+  background: linear-gradient(90deg,
+      var(--blue) 0%,
+      #a8c8ff 38%,
+      #cce0ff 52%,
+      var(--blue) 68%,
+      #a8c8ff 100%);
   background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -310,8 +308,13 @@ nav.scrolled {
 }
 
 @keyframes hw-shimmer {
-  0%   { background-position: 0%   center; }
-  100% { background-position: 220% center; }
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 220% center;
+  }
 }
 
 /* Blinking cursor */
@@ -330,8 +333,15 @@ nav.scrolled {
 }
 
 @keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Cursor fades out when typing is done */
@@ -340,7 +350,11 @@ nav.scrolled {
 }
 
 @keyframes cursor-fade {
-  to { opacity: 0; width: 0; margin: 0; }
+  to {
+    opacity: 0;
+    width: 0;
+    margin: 0;
+  }
 }
 
 
@@ -686,7 +700,7 @@ section {
   position: relative;
 }
 
-section:not(.contact):not(.hero):not(.why-us)::after {
+section:not(.contact):not(.hero):not(.about):not(.mission-section):not(.faq-section)::after {
   content: "";
   display: block;
   width: 90%;
@@ -1596,6 +1610,7 @@ section:not(.contact):not(.hero):not(.why-us)::after {
 .faq-img-wrap {
   position: relative;
   top: 0;
+  margin-top: 40px;
   animation: float-card 5s ease-in-out infinite 1s;
   background: linear-gradient(135deg, #eef3fc, #f5f8ff);
   border-radius: 28px;
@@ -2005,78 +2020,96 @@ footer a:hover {
 
 /* ========== MISSION ========== */
 .mission-section {
-  padding: 15px 4%;
+  padding: 0 4% 40px;
   background: #ffffff;
   position: relative;
+  border-top: none;
 }
 
 .mission-container {
   max-width: 1200px;
   margin: 0 auto;
   background: var(--blue);
-  padding: 20px 25px;
-  border-radius: 20px;
+  padding: 30px 45px;
+  border-radius: 24px;
   color: white;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  text-align: left;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 15px 40px rgba(77, 121, 202, 0.15);
+  box-shadow: 0 15px 45px rgba(77, 121, 202, 0.2);
 }
 
 .mission-container::before {
   content: "";
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  left: 0;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 
 .mission-icon {
-  font-size: 1.3rem;
+  font-size: 2.5rem;
   color: white;
-  margin-bottom: 8px;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
-  position: relative;
-  z-index: 2;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+  flex-shrink: 0;
   animation: float-mission 4s ease-in-out infinite;
 }
 
 @keyframes float-mission {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.mission-info {
+  flex: 1;
 }
 
 .mission-section .section-title {
   color: white;
-  margin-bottom: 6px;
-  font-size: 1.15rem;
-  position: relative;
-  z-index: 2;
-  letter-spacing: 0;
+  margin-bottom: 8px;
+  font-size: 1.4rem;
+  text-align: left;
+  text-transform: none;
+  font-weight: 700;
 }
 
 .mission-text {
-  font-size: 0.82rem;
-  line-height: 1.5;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
   font-weight: 400;
-  max-width: 700px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
+  max-width: none;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
   .mission-container {
-    padding: 18px 15px;
-    border-radius: 16px;
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+    gap: 20px;
   }
+
+  .mission-section .section-title {
+    text-align: center;
+  }
+
   .mission-text {
-    font-size: 13px;
+    font-size: 0.9rem;
   }
 }
 
@@ -2222,7 +2255,7 @@ footer a:hover {
     position: sticky !important;
     top: 0 !important;
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   }
 
   .nav-links {
@@ -2545,6 +2578,7 @@ footer a:hover {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
+
   .step-content h4 {
     font-size: 1.2rem;
     font-weight: 900;
