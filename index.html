@@ -70,7 +70,7 @@
                 clarity and measurable results.</p>
             <div class="hero-btns">
                 <a href="#contact" class="btn-primary"><i class="fa-brands fa-whatsapp"></i>Let's Talk</a>
-                <a href="#services" class="btn-secondary"><i class="fa-solid fa-chevron-down"></i>How We Work</a>
+                <a href="#about" class="btn-secondary"><i class="fa-solid fa-chevron-down"></i>How We Work</a>
             </div>
             <div class="hero-trust-line">
                 <div class="trust-pill"><i class="fa-solid fa-circle-check"></i> ROI-Driven Growth</div>
@@ -163,7 +163,7 @@
     <section class="about" id="about">
         <div class="section-center-header reveal">
             <span class="section-tag"><i class="fa-solid fa-users"></i> Who We Are</span>
-            <h2 class="section-title">The Foundation &amp; The Formula</h2>
+            <h2 class="section-title">About</h2>
         </div>
         <div class="about-inner">
             <div class="about-visual-panel reveal-left">
@@ -220,6 +220,18 @@
             </div>
         </div>
     </section>
+    
+    <section class="mission-section" id="mission">
+        <div class="mission-container reveal">
+            <div class="mission-icon">
+                <i class="fa-solid fa-rocket"></i>
+            </div>
+            <h2 class="section-title">Our Mission</h2>
+            <p class="mission-text">
+                Our goal is to make professional digital marketing accessible to everyone. Whether you are a small startup or a medium-scale business, your budget should never be a barrier to success. We focus on smart, lean strategies that maximize your investment, proving that you don't need a massive budget to get massive results.
+            </p>
+        </div>
+    </section>
 
     <section class="services" id="services">
         <div class="section-center-header reveal">
@@ -228,10 +240,7 @@
             <p class="section-sub">Helping your business grow with clear, powerful marketing solutions designed for
                 results.</p>
         </div>
-        <div class="services-header">
-            <a href="#contact" class="btn-primary reveal reveal-delay-2"><i class="fa-solid fa-arrow-right"></i> Get
-                Started</a>
-        </div>
+
 
         <div class="services-grid">
 
@@ -497,7 +506,8 @@
       var segments = [
         { text: 'Build it ', blue: false },
         { text: 'Right.', blue: true },
-        { text: ' Mark it ', blue: false },
+        { text: '\n', isBr: true },
+        { text: 'Mark it ', blue: false },
         { text: 'Big.', blue: true }
       ];
 
@@ -507,67 +517,52 @@
       /* Flatten to individual character list */
       var chars = [];
       segments.forEach(function (seg) {
-        seg.text.split('').forEach(function (ch) {
-          chars.push({ ch: ch, blue: seg.blue });
-        });
+        if (seg.isBr) {
+          chars.push({ br: true });
+        } else {
+          seg.text.split('').forEach(function (ch) {
+            chars.push({ ch: ch, blue: seg.blue });
+          });
+        }
       });
 
       /* ---- TYPE forward ---- */
-      function typeChar(i, doneCb) {
+      function typeChar(i) {
         if (i >= chars.length) {
-          /* Finished typing — pause then erase */
-          setTimeout(doneCb, 1200);
+          /* Finished typing — stop and fade cursor */
+          setTimeout(function() {
+            cursor.classList.add('done');
+          }, 1000);
           return;
         }
 
         var item = chars[i];
-        var currentSpan = container.lastElementChild;
+        
+        if (item.br) {
+          container.appendChild(document.createElement('br'));
+        } else {
+          var currentSpan = container.lastElementChild;
 
-        /* Start a new span when colour changes */
-        if (!currentSpan || currentSpan.dataset.blue !== String(item.blue)) {
-          currentSpan = document.createElement('span');
-          currentSpan.dataset.blue = String(item.blue);
-          if (item.blue) currentSpan.className = 'hw-blue';
-          container.appendChild(currentSpan);
+          /* Start a new span when colour changes or after a BR */
+          if (!currentSpan || currentSpan.tagName === 'BR' || currentSpan.dataset.blue !== String(item.blue)) {
+            currentSpan = document.createElement('span');
+            currentSpan.dataset.blue = String(item.blue);
+            if (item.blue) currentSpan.className = 'hw-blue';
+            container.appendChild(currentSpan);
+          }
+          currentSpan.textContent += item.ch;
         }
-        currentSpan.textContent += item.ch;
 
-        var delay = item.ch === '.' ? 160
+        var delay = item.br ? 200
+                  : item.ch === '.' ? 160
                   : item.ch === ',' ? 120
                   : item.ch === ' ' ?  55
                   : 72;
-        setTimeout(function () { typeChar(i + 1, doneCb); }, delay);
+        setTimeout(function () { typeChar(i + 1); }, delay);
       }
 
-      /* ---- ERASE backward (character by character) ---- */
-      function eraseChar(doneCb) {
-        /* Walk backwards through spans and remove one char at a time */
-        var spans = container.querySelectorAll('span');
-        if (spans.length === 0) {
-          /* Fully erased — short pause then retype */
-          setTimeout(doneCb, 400);
-          return;
-        }
-
-        var last = spans[spans.length - 1];
-        if (last.textContent.length > 1) {
-          last.textContent = last.textContent.slice(0, -1);
-        } else {
-          last.parentNode.removeChild(last);
-        }
-
-        setTimeout(function () { eraseChar(doneCb); }, 38);
-      }
-
-      /* ---- Main loop ---- */
-      function loop() {
-        typeChar(0, function () {
-          eraseChar(loop);
-        });
-      }
-
-      /* Brief pause before first run */
-      setTimeout(loop, 500);
+      /* Initial run — only once */
+      setTimeout(function() { typeChar(0); }, 500);
     })();
     </script>
 </body>

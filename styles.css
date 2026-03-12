@@ -278,18 +278,18 @@ nav.scrolled {
 /* Reduced padding-top from 30px to 15px */
 
 .hero h1 {
-  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 800;
   line-height: 1.06;
   letter-spacing: -2px;
   margin-bottom: 5px;
   color: var(--text);
+  white-space: normal;
 }
 
 /* ========== HERO HEADING — TYPEWRITER ANIMATION ========== */
 .hero-heading-anim {
   overflow: visible;
-  white-space: nowrap; /* prevents 'Big.' from wrapping to next line */
 }
 
 /* Blue accent words — continuous shimmer sweep */
@@ -918,10 +918,10 @@ section:not(.contact):not(.hero):not(.why-us)::after {
 }
 
 .belief-card h4 {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 6px;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--dark);
+  margin-bottom: 8px;
 }
 
 .belief-card p {
@@ -1068,13 +1068,12 @@ section:not(.contact):not(.hero):not(.why-us)::after {
 }
 
 .service-card-content h3 {
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  font-weight: 900;
   letter-spacing: -0.4px;
-  margin-bottom: 6px;
-  color: var(--text);
-  line-height: 1.3;
-  white-space: nowrap;
+  margin-bottom: 8px;
+  color: var(--dark);
+  line-height: 1.2;
 }
 
 .service-card-content>p {
@@ -1449,10 +1448,10 @@ section:not(.contact):not(.hero):not(.why-us)::after {
 }
 
 .step-content h4 {
-  font-size: 0.88rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: var(--dark);
 }
 
 .step-content p {
@@ -2004,6 +2003,83 @@ footer a:hover {
   }
 }
 
+/* ========== MISSION ========== */
+.mission-section {
+  padding: 15px 4%;
+  background: #ffffff;
+  position: relative;
+}
+
+.mission-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--blue);
+  padding: 20px 25px;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(77, 121, 202, 0.15);
+}
+
+.mission-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.mission-icon {
+  font-size: 1.3rem;
+  color: white;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  position: relative;
+  z-index: 2;
+  animation: float-mission 4s ease-in-out infinite;
+}
+
+@keyframes float-mission {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.mission-section .section-title {
+  color: white;
+  margin-bottom: 6px;
+  font-size: 1.15rem;
+  position: relative;
+  z-index: 2;
+  letter-spacing: 0;
+}
+
+.mission-text {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .mission-container {
+    padding: 18px 15px;
+    border-radius: 16px;
+  }
+  .mission-text {
+    font-size: 13px;
+  }
+}
+
 /* ========== BACK TO TOP ========== */
 @keyframes pulse-ring {
   0% {
@@ -2143,6 +2219,10 @@ footer a:hover {
 @media (max-width: 768px) {
   nav {
     padding: 14px 4%;
+    position: sticky !important;
+    top: 0 !important;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   }
 
   .nav-links {
@@ -2184,7 +2264,7 @@ footer a:hover {
   }
 
   .hero h1 {
-    font-size: clamp(2rem, 6vw, 2.8rem);
+    font-size: clamp(2.4rem, 8vw, 3.8rem);
   }
 
   .hero-btns,
@@ -2349,8 +2429,10 @@ footer a:hover {
   }
 
   .hero h1 {
-    font-size: 1.9rem;
-    letter-spacing: -1px;
+    font-size: 2.8rem;
+    letter-spacing: -1.5px;
+    font-weight: 900;
+    line-height: 1.1;
   }
 
   .hero p {
@@ -2414,13 +2496,14 @@ footer a:hover {
   }
 
   .section-title {
-    font-size: 1.8rem;
+    font-size: 2.22rem;
   }
 
   /* Beliefs — single column, title wraps */
   .beliefs .section-title {
     white-space: normal;
-    font-size: 1.8rem;
+    font-size: 2.6rem;
+    font-weight: 900;
   }
 
   .beliefs-inner {
@@ -2448,7 +2531,8 @@ footer a:hover {
   }
 
   .service-card-content h3 {
-    font-size: 0.9rem;
+    font-size: 1.4rem;
+    font-weight: 900;
     white-space: normal;
   }
 
@@ -2460,6 +2544,11 @@ footer a:hover {
   .about-steps {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+  }
+  .step-content h4 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--dark);
   }
 
   .about-stats-row {
@@ -2519,7 +2608,7 @@ footer a:hover {
   }
 
   .beliefs .section-title {
-    font-size: 1.6rem;
+    font-size: 1.9rem;
   }
 
   .services-grid {
